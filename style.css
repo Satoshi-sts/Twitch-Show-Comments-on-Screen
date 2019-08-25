@@ -1,0 +1,14 @@
+#comments_list {
+  width: 400px;
+  height: 300px;
+  position: absolute;
+  z-index: 99999;
+}
+
+.show_commentsList {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.hide_commentsList {
+  background-color: rgba(0,0,0,0.3);
+}

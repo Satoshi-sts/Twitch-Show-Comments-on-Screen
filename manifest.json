@@ -1,0 +1,22 @@
+{
+  "name": "[Twitch] get Comments.",
+  "description": "get all comments and show chatList.",
+  "version": "1.0",
+  "manifest_version": 2,
+  "permissions": [
+    "tabs"
+  ],
+  "browser_action":{
+    "default_icon": "images/icon_title.jpg",
+    "default_title": "Show comments on video screen!"
+  },
+  "content_scripts": [{
+    "matches": ["https://www.twitch.tv/videos/*"],
+    "js": ["content.js"],
+    "css": ["style.css"]
+    }],
+  "background":{
+    "scripts": ["background.js", "jQuery.js", "jquery.easing.js"],
+    "persistent": false
+  }
+}
