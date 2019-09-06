@@ -55,8 +55,26 @@ function mouseLeave(){
   this.classList.add("hide_commentsList");
 }
 
+function observer(){
+  //監視ターゲットの取得
+  const target = document.getElementsByClassName("chat-list__list-container")[0];
+
+  //オブザーバーの作成
+  const observer = new MutationObserver(e => {
+    document.getElementById("comments_list").insertAdjacentHTML("beforeend",'<div class="added_comments" style="padding: 3px 20px;">' + e[0].addedNodes[0].innerHTML + '</div>');
+  });
+
+  //監視オプションの作成
+  const options = {
+    childList: true
+  };
+
+  //監視の開始
+  observer.observe(target, options);
+}
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+
   var div = document.createElement("div");
   div.id = "comments_list";
   div.className = "show_commentsList";
@@ -67,11 +85,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
   //DOMに追加したコメント欄の上にマウスを移動すると、要素を表示
   div.addEventListener("mouseover", mouseOver);
 
+
   document.getElementsByClassName("player-video")[0].appendChild(div);
 
   //アイコンクリック２秒後に、hide_commentsList属性を付与する事でコメント欄を透明化
   setTimeout(function(){
     div.classList.add("hide_commentsList");
+    observer();
   }, 2000);
 
   sendResponse();
